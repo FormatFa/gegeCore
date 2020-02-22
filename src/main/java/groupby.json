@@ -1,0 +1,1 @@
+[{"compid":"source-csv","conf":{"separator":",","path":"people.csv"}},{"compid":"col-groupby","conf":{"columns":"sex","aggColumn":"name","operation":"count","alias":"count"}},{"compid":"sink-csv","conf":{"path":"sexcount.csv","separator":","}}]
