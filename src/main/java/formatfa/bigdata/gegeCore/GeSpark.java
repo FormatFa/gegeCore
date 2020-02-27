@@ -50,12 +50,12 @@ public GeSpark(SparkSession session, String data) {
 //	加载组件
 	public void loadComponents() throws Exception
 	{
+		
 		components = new ArrayList<Component>();
 		JSONArray array  =  JSONObject.parseArray(data);
-		System.out.println(array);
 		for(int i =0;i<array.size();i+=1)
 		{
-			System.out.println(array.get(i));
+//			System.out.println(array.get(i));
 			HashMap<String,String> conf = new HashMap<String,String>();
 			JSONObject jsonConf = array.getJSONObject(i).getJSONObject("conf");
 			for(String key: jsonConf.keySet())
@@ -66,7 +66,7 @@ public GeSpark(SparkSession session, String data) {
 			Component c =  ComponentFactory.getComponent(array.getJSONObject(i).getString("compid"), conf);
 			components.add(c);
 		}
-		
+		System.out.println("加载处理组件完成,组件个数:"+this.components.size());
 	}
 	
 //	处理
@@ -79,23 +79,42 @@ public GeSpark(SparkSession session, String data) {
 			throw new Exception("组件至少要3个");
 		}
 		
-		SourceComponent source = (SourceComponent) this.components.get(0);
-		Dataset<Row> inputdata = source.getSource(session);
-		for(int i=1;i<this.components.size()-1;i+=1)
+		Dataset<Row> inputdata =null;
+		for(int i=0;i<this.components.size();i+=1)
 		{
-			System.out.println("处理组件:"+this.components.get(i));
-			if( !(this.components.get(i) instanceof TransformComponent)) {
-				System.err.println("跳过非transfrom组件:"+this.components.get(i));
-				continue;
+			Component now = this.components.get(i);
+			System.out.println("***处理组件:"+this.components.get(i).getCompid());
+			
+			if( now instanceof SourceComponent)
+			{
+				SourceComponent source = (SourceComponent)this.components.get(i);
+				inputdata = source.readSource(session);
 			}
-			 TransformComponent trans =  (TransformComponent) this.components.get(i);
-			 inputdata = trans.process(inputdata);
+			else if( now  instanceof TransformComponent) {
+				if(inputdata==null)
+				{
+					System.out.println("遇到了转换组件，但是输入数据为空!!");
+					continue;
+				}
+				 TransformComponent trans =  (TransformComponent) this.components.get(i);
+				 inputdata = trans.process(inputdata);
+			}
+			else if(now instanceof SinkComponent) {
+				if(inputdata==null)
+				{
+					System.out.println("遇到了保存组件，但是输入数据为空!!");
+					continue;
+				}
+				SinkComponent sink = (SinkComponent) this.components.get(i);
+				boolean sinkResult = sink.writeSink(inputdata);
+				System.out.println(sink.getCompid()+"sink结果:"+sinkResult);
+			}
+			
 		}
+	
 		
-//		最后一个是sink组件
-		SinkComponent sink = (SinkComponent) this.components.get(this.components.size()-1);
-		boolean sinkResult = sink.writeSink(inputdata);
-		System.out.println("处理完成!");
+		
+		System.out.println("-----处理完成!-----");
 	}
 
 	/**
@@ -103,9 +122,10 @@ public GeSpark(SparkSession session, String data) {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		System.out.println(args.length);
-		Component c =  ComponentFactory.getComponent("sink-csv", null);
-		System.out.println(c);
+	
+		
+//		Component c =  ComponentFactory.getComponent("sink-csv", null);
+//		System.out.println(c);
 		
 		SparkSession session = SparkSession.builder().appName("test").master("local[2]").getOrCreate();
 		session.sparkContext().setLogLevel("WARN");
@@ -117,7 +137,8 @@ public GeSpark(SparkSession session, String data) {
 		}
 		else
 		{
-			ClassPathResource resource = new ClassPathResource("groupby.json");
+//			不是从命令行传参数，就使用测试数据
+			ClassPathResource resource = new ClassPathResource("comps.json");
 			json = IOUtils.toString(resource.getStream());
 		}
 		

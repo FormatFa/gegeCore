@@ -1,3 +1,6 @@
+spark-warehouse
+.cache-main
+.cache-tests
 # Eclipse
 .metadata/
 .settings/

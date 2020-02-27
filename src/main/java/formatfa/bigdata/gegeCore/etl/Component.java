@@ -14,6 +14,9 @@ public abstract class Component {
 //	组件的配置
 	private HashMap<String, String> conf;
 
+	public String getCompid() {
+		return this.compid;
+	}
 //	默认使用data来构造组件，由组件解析成hashmap
 
 	public String getConf(String key) {
@@ -28,10 +31,15 @@ public abstract class Component {
 
 	}
 
-
-	public Component(HashMap<String, String> conf) {
+	
+	public Component(String compid,HashMap<String, String> conf) {
 		super();
 		this.conf = conf;
+		this.compid = compid;
 	}
+//	public Component(HashMap<String, String> conf) {
+//		super();
+//		this.conf = conf;
+//	}
 
 }

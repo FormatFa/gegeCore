@@ -8,8 +8,10 @@ import org.apache.spark.sql.Row;
 public abstract class TransformComponent extends Component {
 
 	
-public TransformComponent(HashMap<String, String> conf) {
-		super(conf);
+
+
+	public TransformComponent(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 

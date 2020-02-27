@@ -13,8 +13,9 @@ public class ColSelect extends TransformComponent {
 
 
 
-	public ColSelect(HashMap<String, String> conf) {
-		super(conf);
+
+	public ColSelect(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 

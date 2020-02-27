@@ -10,8 +10,10 @@ import formatfa.bigdata.gegeCore.etl.SourceComponent;
 
 public class SinkCsv extends SinkComponent {
 
-	public SinkCsv(HashMap<String, String> conf) {
-		super(conf);
+
+
+	public SinkCsv(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 

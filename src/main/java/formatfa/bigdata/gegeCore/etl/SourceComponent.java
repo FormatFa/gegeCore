@@ -8,8 +8,10 @@ import org.apache.spark.sql.SparkSession;
 
 public abstract  class SourceComponent extends Component {
 
-	public SourceComponent(HashMap<String, String> conf) {
-		super(conf);
+	
+
+	public SourceComponent(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 

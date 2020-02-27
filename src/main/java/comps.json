@@ -1,0 +1,1 @@
+[{"compid":"source-csv","conf":{"separator":",","path":"people.csv"}},{"compid":"row-limit","conf":{"num":"2"}},{"compid":"sink-console","conf":{"limit":"22"}},{"compid":"orderby","conf":{"column":"age","order":"desc"}}]

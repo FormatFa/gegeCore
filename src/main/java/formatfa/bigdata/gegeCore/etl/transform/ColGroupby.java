@@ -12,8 +12,10 @@ import formatfa.bigdata.gegeCore.etl.TransformComponent;
 import static org.apache.spark.sql.functions.*;;
 public class ColGroupby extends TransformComponent {
 
-	public ColGroupby(HashMap<String, String> conf) {
-		super(conf);
+
+
+	public ColGroupby(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 

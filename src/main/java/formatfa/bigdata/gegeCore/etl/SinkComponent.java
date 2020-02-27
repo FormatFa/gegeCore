@@ -12,8 +12,9 @@ public abstract class SinkComponent extends Component {
 	 */
 	
 
-	public SinkComponent(HashMap<String, String> conf) {
-		super(conf);
+
+	public SinkComponent(String compid, HashMap<String, String> conf) {
+		super(compid, conf);
 		// TODO Auto-generated constructor stub
 	}
 
