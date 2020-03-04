@@ -1,0 +1,42 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PiJob<gegeCore>",
+            "request": "launch",
+            "mainClass": "examples.PiJob",
+            "projectName": "gegeCore"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SubJob<gegeCore>",
+            "request": "launch",
+            "mainClass": "examples.SubJob",
+            "projectName": "gegeCore"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GeSpark<gegeCore>",
+            "request": "launch",
+            "mainClass": "formatfa.bigdata.gegeCore.GeSpark",
+            "projectName": "gegeCore"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LocalSparkTest<gegeCore>",
+            "request": "launch",
+            "mainClass": "sparktest.LocalSparkTest",
+            "projectName": "gegeCore"
+        }
+    ]
+}
